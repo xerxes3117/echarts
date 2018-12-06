@@ -1,6 +1,7 @@
 //Moving chart, legends and slider
 
-//need to take care of z index across graphic elements (so that their handles dont collide)
+//Need to take care of z index across graphic elements (so that their handles dont collide). 
+//Follwing z are to be set - series,datazoom slider, legend and their corresponding graphic elements 
 //in case  of rect elements need to add a border when graphic element clicked
 //need to decide how to move for left and right side of slider. currently move is above  slider handle.
 
@@ -15,9 +16,7 @@ option = {
           type: 'slider',
            id: 's', 
            z: 2000,
-           left: '10%',
-           start: 20,
-           showDataShadow: false
+           left: '10%', //this needs to be set so that slider doesn't move  when chart is moved
       }
     ],
     tooltip: {
@@ -120,8 +119,6 @@ if (!app.inNode) {
 })
 }
 
-console.log(myChart)
-
 function draggingSlider() {
 
 x = (this.position[0]+67.9)/myChart.getWidth(); //67.9 and 506 are initial pos of graphic
@@ -138,7 +135,7 @@ myChart.setOption({dataZoom: [{
                               right: x1 + '%',
                               bottom: y1 + '%'
                               }],
-                   graphic: [{id: 'c', left: x*100 + '%',top: y*100 + '%'}],
+                   graphic: [{id: 'c', left: x*100 + '%',top: y*100 + '%'}], //graphic won't move without doing this
                    animation: false
 });
 
@@ -155,7 +152,7 @@ myChart.setOption({legend: [{left: x*100 + '%',
                            top: y*100 + '%',
                            right: x1 + '%',
                            bottom: y1 + '%'}],
-                   graphic: [{id: 'b', left: x*100 + '%',top: y*100 + '%'}],
+                   graphic: [{id: 'b', left: x*100 + '%',top: y*100 + '%'}], //graphic won't move without doing this
                    animation: false
 });
 }
@@ -171,7 +168,7 @@ myChart.setOption({grid: [{left: x*100 + '%',
                            top: y*100 + '%',
                            right: x1 + '%',
                            bottom: y1 + '%'}],
-                   graphic: [{id: 'a', left: x*100 + '%',top: y*100 + '%'}],
+                   graphic: [{id: 'a', left: x*100 + '%',top: y*100 + '%'}], //graphic won't move without doing this
                    animation: false
 });
 }
