@@ -4,6 +4,7 @@
 //Follwing z are to be set - series,datazoom slider, legend and their corresponding graphic elements 
 //in case  of rect elements need to add a border when graphic element clicked
 //need to decide how to move for left and right side of slider. currently move is above  slider handle.
+//checkout datastudio and excel for ui design
 
 option = {
     color: ['#8EC9EB'],
