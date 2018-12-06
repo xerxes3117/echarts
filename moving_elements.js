@@ -1,10 +1,11 @@
 //Moving chart, legends and slider
 
-//Need to take care of z index across graphic elements (so that their handles dont collide). 
+//1)Need to take care of z index across graphic elements (so that their handles dont collide). 
 //Follwing z are to be set - series,datazoom slider, legend and their corresponding graphic elements 
-//in case  of rect elements need to add a border when graphic element clicked
-//need to decide how to move for left and right side of slider. currently move is above  slider handle.
-//checkout datastudio and excel for ui design
+//2)In case  of rect elements need to add a border when graphic element clicked
+//3)Need to decide how to move for left and right side of slider. currently move is above  slider handle.
+//4)Replace line graphic elements with circles (like excel and datastudio)
+//5)How to move in case pie/donut charts
 
 option = {
     color: ['#8EC9EB'],
