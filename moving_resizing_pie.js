@@ -1,8 +1,11 @@
-//1) On circle drag following steps: 
+//1a) On circle drag following steps: 
 //   - Calculate new center 
 //   - Calculate new radius
 //   - Calculate new width for rect
 //   - set all these in setOption
+//1b) Ignore 1a), new steps:
+//   - First try to resize the rect element (knowing the 2 ends of rect will always stay same)
+//   - Calculate new center and radius based on this new rect positions
 //2) On rect drag, we need to calculate new position for all circle graphics
 
 app.title = 'abc';
