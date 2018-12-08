@@ -1,11 +1,8 @@
-//1) Ignore 1a), new steps:
-//   - First try to resize the rect element (knowing the 2 ends of rect will always stay same)
-//   - Calculate new center and radius based on this new rect positions
+//1) On moving circle we need to resize rect and chart - Solved
 //2) On rect drag, we need to calculate new position for all circle graphics
-//3) On moving circle, rect right and bottom are not stable. 
-//   - Try to do with only graphic elements (without chart)
-//   - Ask on github issues - https://github.com/apache/incubator-echarts/issues
-//   - Try using polyline or polygons
+//3) On moving circle, rect right and bottom are not stable - Solved
+//4) We need to decide how to fetch fixed end coordinate when moving circles (checkout pie_graphics_only.js)
+//5) In resizePie can we use only 1 setOption? Using ternary operators rather than if-else (checkout pie_graphics_only.js)
 
 app.title = 'abc';
 
@@ -156,8 +153,8 @@ function resizePie(event) {
                 },
                 {
                     id: 'a',
-                    left: (y2 - k),
-                    top: (y2),
+                    left: y2 - k,
+                    top: y2,
                     shape: {
                         width: 2 * rd,
                         height: 2 * rd
@@ -179,8 +176,8 @@ function resizePie(event) {
                 },
                 {
                     id: 'a',
-                    left: ((y2 - k) / w) * 100 + '%',
-                    top: (y2 / h) * 100 + '%',
+                    left: x1,
+                    top: x1 + k,
                     shape: {
                         width: 2 * rd,
                         height: 2 * rd
