@@ -1,12 +1,10 @@
-//1a) On circle drag following steps: 
-//   - Calculate new center 
-//   - Calculate new radius
-//   - Calculate new width for rect
-//   - set all these in setOption
-//1b) Ignore 1a), new steps:
+//1) Ignore 1a), new steps:
 //   - First try to resize the rect element (knowing the 2 ends of rect will always stay same)
 //   - Calculate new center and radius based on this new rect positions
 //2) On rect drag, we need to calculate new position for all circle graphics
+//3) On moving circle, rect right and bottom are not stable. 
+//   - Try to do with only graphic elements (without chart)
+//   - Ask on github issues - https://github.com/apache/incubator-echarts/issues
 
 app.title = 'abc';
 
@@ -48,18 +46,21 @@ if (!app.inNode) {
         r = h * 0.35;
         l = w / 2 - r;
         t = h / 2 - r;
-        //console.log(w,h,r,l,t);
+        rt = l + 2 * r;
+        bt = t + 2 * r;
+        //console.log(rt, bt)
         myChart.setOption({
             graphic: [{
                     type: 'rect',
                     id: 'a',
                     z: 100,
                     left: l,
+                    progressive: true,
                     cursor: 'move',
                     top: t,
-                    right: l + 2 * r,
-                    bottom: t + 2 * r,
                     draggable: true,
+                    scale: [1,1],
+                    origin: [rt,bt],
                     shape: {
                         width: 2 * r,
                         height: 2 * r
@@ -72,6 +73,7 @@ if (!app.inNode) {
                 {
                     type: 'circle',
                     id: 'b',
+                    progressive: true,
                     position: [l, t],
                     shape: {
                         cx: 0,
@@ -86,6 +88,7 @@ if (!app.inNode) {
         });
     }, 0);
 }
+//console.log(myChart.getOption());
 
 function draggingPie() {
 
@@ -130,21 +133,33 @@ function resizePie(event) {
 
     x1 = this.position[0];
     y2 = this.position[1];
-    //console.log(this.position);
-    console.log(myChart.getOption())
+    
+    rt  =  209.95000000000002 + h*0.7; //rather use cx + r; where both cx and r would be obtained from getOption
+    rd = (rt - x1)/2;
+    
+    Cx = (x1 + rd)/w;
+    Cy = (y2 + rd)/h;
+    
+    //console.log(myChart.getOption(),rt, rd);
+    
     if (c == 1) {
         myChart.setOption({
+            series: [{
+            id: 'myPie',
+            center: [Cx * 100 + '%', Cy * 100 + '%'],
+            radius: ['0%', (rd*2)/h * 100 + '%']
+        }],
             graphic: [{
                     id: 'b',
                     position: [y2 - k, y2]
                 },
                 {
                     id: 'a',
-                    left: ((y2 - k) / w) * 100 + '%',
-                    top: (y2 / h) * 100 + '%',
+                    left: (y2 - k),
+                    top: (y2),
                     shape: {
-                        width: 2 * r,
-                        height: 2 * r
+                        width: 2 * rd,
+                        height: 2 * rd
                     }
                 }
             ],
@@ -152,6 +167,11 @@ function resizePie(event) {
         });
     } else {
         myChart.setOption({
+            series: [{
+            id: 'myPie',
+            center: [Cx * 100 + '%', Cy * 100 + '%'],
+            radius: ['0%', (rd*2)/h * 100 + '%']
+        }],
             graphic: [{
                     id: 'b',
                     position: [x1, x1 + k]
@@ -161,8 +181,8 @@ function resizePie(event) {
                     left: ((y2 - k) / w) * 100 + '%',
                     top: (y2 / h) * 100 + '%',
                     shape: {
-                        width: 2 * r,
-                        height: 2 * r
+                        width: 2 * rd,
+                        height: 2 * rd
                     }
                 }
             ],
