@@ -6,6 +6,10 @@
 //   - 'ondrag' resize only graphic elements
 //   - 'ondragend' resize the chart
 // 6) Need to check why chart render unstable in resizePie
+// 7) Pending items for implmentation in gridster project -
+//    - in resizePie, how to set inner radius (donut chart)
+//    - radius % (both inner and outer) are calculated using smaller value between width and height of bounding element
+//    - on gridster resize we need to calculate new values for our variables in global scope and new positions for graphic elements 
 
 app.title = 'abc';
 
