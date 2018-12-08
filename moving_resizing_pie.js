@@ -10,6 +10,11 @@
 //    - in resizePie, how to set inner radius (donut chart)
 //    - radius % (both inner and outer) are calculated using smaller value between width and height of bounding element
 //    - on gridster resize we need to calculate new values for our variables in global scope and new positions for graphic elements 
+//    - how to show and hide graphic elements -
+//      - There's no onfocus/onfocusout so we need to add a surrounding graphic with low z 
+//         and use onclick on that element to check for focusout of other elements.
+//      - onclick would have to be added to charts elements also to detect focus out.
+//      - Also there seems to some issue in dragging rect elements when we add border/stroke to that element.
 
 app.title = 'abc';
 
