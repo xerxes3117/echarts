@@ -5,6 +5,7 @@
 //3) On moving circle, rect right and bottom are not stable. 
 //   - Try to do with only graphic elements (without chart)
 //   - Ask on github issues - https://github.com/apache/incubator-echarts/issues
+//   - Try using polyline or polygons
 
 app.title = 'abc';
 
