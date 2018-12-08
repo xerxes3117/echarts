@@ -1,7 +1,11 @@
 //1) On moving circle we need to resize rect and chart - Solved
 //2) On moving circle, rect right and bottom are not stable - Solved
-//3) We need to decide how to fetch fixed end coordinate when moving circles (checkout pie_graphics_only.js)
-//4) On rect drag, we need to calculate new position for all circle graphics 
+//3) We need to decide how to fetch fixed end coordinate when moving circles - Solved
+//4) On rect drag, we need to calculate new position for all circle graphics - Solved
+//5) 'ondragend' and 'ondrag' can be used separately (to hide unstable rendering)
+//   - 'ondrag' resize only graphic elements
+//   - 'ondragend' resize the chart
+// 6) Need to check why chart render unstable in resizePie
 
 app.title = 'abc';
 
@@ -13,6 +17,7 @@ option = {
         radius: ['0%', '70%'],
         center: ['50%', '50%'],
         avoidLabelOverlap: false,
+        animation: false,
         data: [{
                 value: 335,
                 name: 'q'
@@ -43,9 +48,7 @@ if (!app.inNode) {
         r = h * 0.35;
         l = w / 2 - r;
         t = h / 2 - r;
-        rt = l + 2 * r;
-        bt = t + 2 * r;
-        //console.log(rt, bt)
+
         myChart.setOption({
             graphic: [{
                     type: 'rect',
@@ -56,8 +59,6 @@ if (!app.inNode) {
                     cursor: 'move',
                     top: t,
                     draggable: true,
-                    scale: [1,1],
-                    origin: [rt,bt],
                     shape: {
                         width: 2 * r,
                         height: 2 * r
@@ -85,7 +86,13 @@ if (!app.inNode) {
         });
     }, 0);
 }
-//console.log(myChart.getOption());
+
+var cX;
+var cY;
+var CX = w/2;
+var CY = h/2;
+var r = h * 0.35;
+var rt = l + 2*r;
 
 function draggingPie() {
 
@@ -93,25 +100,19 @@ function draggingPie() {
     y = this.position[1];
     w = myChart.getWidth();
     h = myChart.getHeight();
-    r = h * 0.35;
-    cx = (x + r) / w;
-    cy = (y + r) / h;
+    CX = x + r;
+    CY = y + r;
+    rt = x + 2*r;
 
     myChart.setOption({
         series: [{
             id: 'myPie',
-            center: [cx * 100 + '%', cy * 100 + '%']
+            center: [CX, CY]
         }],
-        graphic: [{
-            id: 'a',
-            left: (x / w) * 100 + '%',
-            top: (y / h) * 100 + '%'
-        }],
-        animation: false
+        graphic: [{id: 'a', left: x, top: y},
+                  {id: 'b', position: [x, y]}],
     });
 }
-
-var cX, cY;
 
 function resizePie(event) {
 
@@ -124,27 +125,22 @@ function resizePie(event) {
 
     w = myChart.getWidth();
     h = myChart.getHeight();
-    cx = w / 2; //cx and cy would change; we can use getOption to get center value
-    cy = h / 2;
-    k = cy - cx;
+    k = CY - CX;
 
     x1 = this.position[0];
     y2 = this.position[1];
     
-    rt  =  209.95000000000002 + h*0.7; //rather use cx + r; where both cx and r would be obtained from getOption
-    rd = (rt - x1)/2;
+    r = (rt - x1)/2;
     
-    Cx = (x1 + rd)/w;
-    Cy = (y2 + rd)/h;
-    
-    //console.log(myChart.getOption(),rt, rd);
+    Cx = x1 + r;
+    Cy = y2 + r;
     
     if (c == 1) {
         myChart.setOption({
             series: [{
             id: 'myPie',
-            center: [Cx * 100 + '%', Cy * 100 + '%'],
-            radius: ['0%', (rd*2)/h * 100 + '%']
+            center: [Cx, Cy],
+            radius: ['0%', (r*2)/h * 100 + '%']
         }],
             graphic: [{
                     id: 'b',
@@ -155,19 +151,18 @@ function resizePie(event) {
                     left: y2 - k,
                     top: y2,
                     shape: {
-                        width: 2 * rd,
-                        height: 2 * rd
+                        width: 2 * r,
+                        height: 2 * r
                     }
                 }
             ],
-            animation: false
         });
     } else {
         myChart.setOption({
             series: [{
             id: 'myPie',
-            center: [Cx * 100 + '%', Cy * 100 + '%'],
-            radius: ['0%', (rd*2)/h * 100 + '%']
+            center: [Cx, Cy],
+            radius: ['0%', (r*2)/h * 100 + '%']
         }],
             graphic: [{
                     id: 'b',
@@ -178,12 +173,11 @@ function resizePie(event) {
                     left: x1,
                     top: x1 + k,
                     shape: {
-                        width: 2 * rd,
-                        height: 2 * rd
+                        width: 2 * r,
+                        height: 2 * r
                     }
                 }
             ],
-            animation: false
         });
     }
 
