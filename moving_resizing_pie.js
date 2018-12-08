@@ -2,7 +2,6 @@
 //2) On rect drag, we need to calculate new position for all circle graphics
 //3) On moving circle, rect right and bottom are not stable - Solved
 //4) We need to decide how to fetch fixed end coordinate when moving circles (checkout pie_graphics_only.js)
-//5) In resizePie can we use only 1 setOption? Using ternary operators rather than if-else (checkout pie_graphics_only.js)
 
 app.title = 'abc';
 
