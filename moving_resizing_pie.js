@@ -1,7 +1,7 @@
 //1) On moving circle we need to resize rect and chart - Solved
-//2) On rect drag, we need to calculate new position for all circle graphics
-//3) On moving circle, rect right and bottom are not stable - Solved
-//4) We need to decide how to fetch fixed end coordinate when moving circles (checkout pie_graphics_only.js)
+//2) On moving circle, rect right and bottom are not stable - Solved
+//3) We need to decide how to fetch fixed end coordinate when moving circles (checkout pie_graphics_only.js)
+//4) On rect drag, we need to calculate new position for all circle graphics 
 
 app.title = 'abc';
 
