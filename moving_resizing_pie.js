@@ -12,9 +12,10 @@
 //         and use onclick on that element to check for focusout of other elements.
 //      - onclick would have to be added to charts elements also to detect focus out.
 //      - Also there seems to some issue in dragging rect elements when we add border/stroke to that element.
-//      - 'ondragend' and 'ondrag' can be used separately.
-//         - 'ondrag' resize only graphic elements
-//         - 'ondragend' resize the chart
+//    - resizePie might break when any corner crosses another corner elements (horizontally, vertically, diagonally)
+//    - 'ondragend' and 'ondrag' can be used separately.
+//      - 'ondrag' resize only graphic elements
+//      - 'ondragend' resize the chart
 
 app.title = 'abc';
 
@@ -113,6 +114,7 @@ function draggingPie() {
     CX = x + r;
     CY = y + r;
     rt = x + 2*r;
+    bt = y + 2*r;
 
     myChart.setOption({
         series: [{
