@@ -102,6 +102,7 @@ var CX = w/2;
 var CY = h/2;
 var r = h * 0.35;
 var rt = l + 2*r;
+var bt = t + 2*r;
 
 function draggingPie() {
 
@@ -139,7 +140,7 @@ function resizePie(event) {
     x1 = this.position[0];
     y2 = this.position[1];
     
-    r = (rt - x1)/2;
+    r = c === 0 ? (rt - x1)/2 : (bt - y2)/2;
     
     Cx = x1 + r;
     Cy = y2 + r;
@@ -148,7 +149,7 @@ function resizePie(event) {
         myChart.setOption({
             series: [{
             id: 'myPie',
-            center: [Cx, Cy],
+            center: [Cy - k, Cy],
             radius: ['0%', (r*2)/h * 100 + '%']
         }],
             graphic: [{
@@ -170,7 +171,7 @@ function resizePie(event) {
         myChart.setOption({
             series: [{
             id: 'myPie',
-            center: [Cx, Cy],
+            center: [Cx, Cx + k],
             radius: ['0%', (r*2)/h * 100 + '%']
         }],
             graphic: [{
