@@ -1,12 +1,9 @@
-//1) On moving circle we need to resize rect and chart - Solved
-//2) On moving circle, rect right and bottom are not stable - Solved
-//3) We need to decide how to fetch fixed end coordinate when moving circles - Solved
-//4) On rect drag, we need to calculate new position for all circle graphics - Solved
-//5) 'ondragend' and 'ondrag' can be used separately (to hide unstable rendering)
-//   - 'ondrag' resize only graphic elements
-//   - 'ondragend' resize the chart
-// 6) Need to check why chart render unstable in resizePie
-// 7) Pending items for implmentation in gridster project -
+//1) On moving circle we need to resize rect and chart - Solved (8/12)
+//2) On moving circle, rect right and bottom are not stable - Solved (8/12)
+//3) We need to decide how to fetch fixed end coordinate when moving circles - Solved (9/12)
+//4) On rect drag, we need to calculate new position for all circle graphics - Solved (9/12)
+//5) Chart render unstable in resizePie - Solved (9/12)
+//6) Pending items for implmentation in gridster project -
 //    - in resizePie, how to set inner radius (donut chart)
 //    - radius % (both inner and outer) are calculated using smaller value between width and height of bounding element
 //    - on gridster resize we need to calculate new values for our variables in global scope and new positions for graphic elements 
@@ -15,6 +12,9 @@
 //         and use onclick on that element to check for focusout of other elements.
 //      - onclick would have to be added to charts elements also to detect focus out.
 //      - Also there seems to some issue in dragging rect elements when we add border/stroke to that element.
+//      - 'ondragend' and 'ondrag' can be used separately.
+//         - 'ondrag' resize only graphic elements
+//         - 'ondragend' resize the chart
 
 app.title = 'abc';
 
