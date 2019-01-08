@@ -54,7 +54,7 @@ option = {
     var len = myChart
       ._coordSysMgr
       ._coordinateSystems[0]
-      ._axesList[0]["__\u0000ec_inner_8_0.89235"]
+      ._axesList[0]["__\u0000ec_inner_8_0.89235"] //This id won't be constant 
       .labels[0]
       .value
       .labels
