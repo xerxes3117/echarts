@@ -1,4 +1,4 @@
-//Issue: Doesn't work for datapoints less than 20
+//Issue: Doesn't work for datapoints less than 20. Post issue on https://github.com/apache/incubator-echarts/issues
 //Another separate possible solution: rotate labels based on number of datapoints and labels length
 
 var data1 = ['Campaign 1'
