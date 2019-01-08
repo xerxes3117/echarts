@@ -51,11 +51,6 @@ option = {
     setTimeout(function () {
  //myChart.on('finished', function () {
             
-    /*  console.log(myChart
-      ._coordSysMgr
-      ._coordinateSystems[0])
-      */
-      
     var len = myChart
       ._coordSysMgr
       ._coordinateSystems[0]
