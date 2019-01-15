@@ -1,3 +1,11 @@
+/*
+ * Pending items: (see example for reference https://ecomfe.github.io/echarts-examples/public/editor.html?c=treemap-disk)
+ * 1) How to show tooltip as in above example
+ * 2) Using drill down feature (leafDepth option)
+ * 3) How to show color transition for higher vs lower values (see levels option)
+ * 4) Read complete treemap api for more features : https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap
+ */
+
 function setValue(object, path, value) {
  var last = path.pop();
  path.reduce((o, k) => o[k] = o[k] || {}, object)[last] = value;
