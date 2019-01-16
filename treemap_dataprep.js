@@ -5,7 +5,8 @@
  *   2) Using drill down feature (leafDepth option) - Done (1/16/2019)
  *   3) How to show color transition for higher vs lower values (see levels option) - Done (1/16/2019)
  *   4) Check if breadcrumb correct
- *   5) Read complete treemap api for more features : https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap
+ *   5) Label formatter update if required
+ *   6) Read complete treemap api for more features : https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap
  */
 
 let new_data = [];
