@@ -1,10 +1,11 @@
 /*
+ * For Data array check out https://github.com/xerxes3117/echarts/blob/master/treemap_data.js
  * Pending items: (see example for reference https://ecomfe.github.io/echarts-examples/public/editor.html?c=treemap-disk)
- * 1) How to show tooltip as in above example - Done (1/16/2019)
- * 2) Using drill down feature (leafDepth option) - Done (1/16/2019)
- * 3) How to show color transition for higher vs lower values (see levels option) - Done (1/16/2019)
- * 4) Check if breadcrumb correct
- * 5) Read complete treemap api for more features : https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap
+ *   1) How to show tooltip as in above example - Done (1/16/2019)
+ *   2) Using drill down feature (leafDepth option) - Done (1/16/2019)
+ *   3) How to show color transition for higher vs lower values (see levels option) - Done (1/16/2019)
+ *   4) Check if breadcrumb correct
+ *   5) Read complete treemap api for more features : https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap
  */
 
 let new_data = [];
