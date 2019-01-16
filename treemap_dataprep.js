@@ -1,10 +1,26 @@
 /*
  * Pending items: (see example for reference https://ecomfe.github.io/echarts-examples/public/editor.html?c=treemap-disk)
- * 1) How to show tooltip as in above example
- * 2) Using drill down feature (leafDepth option)
- * 3) How to show color transition for higher vs lower values (see levels option)
- * 4) Read complete treemap api for more features : https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap
+ * 1) How to show tooltip as in above example - Done (1/16/2019)
+ * 2) Using drill down feature (leafDepth option) - Done (1/16/2019)
+ * 3) How to show color transition for higher vs lower values (see levels option) - Done (1/16/2019)
+ * 4) Check if breadcrumb correct
+ * 5) Read complete treemap api for more features : https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap
  */
+
+let new_data = [];
+let data_fields = ["campaign", "fico_band", "SUM_applications"]
+
+data.forEach(d => {
+  let elArr = [];
+  data_fields.forEach(e => {
+    elArr.push(d[e]);
+  })
+  new_data.push(elArr);
+});
+
+var raw_data = new_data;
+
+var final_tree = [];
 
 function setValue(object, path, value) {
  var last = path.pop();
@@ -34,30 +50,86 @@ function* walk_tree(tree) {
  }
 }
 
-var raw_data = [
- ["A1", "B1", "C1", 1],
- ["A1", "B1", "C1", 2],
- ["A1", "B1", "C2", 3],
- ["A1", "B2", "C1", 4],
- ["A1", "B2", "C1", 5],
- ["A1", "B2", "C2", 6],
- ["A1", "B2", "C2", 7],
- ["A2", "B1", "C1", 8],
- ["A2", "B1", "C1", 9],
- ["A2", "B1", "C2", 10],
- ["A2", "B1", "C2", 11],
- ["A2", "B2", "C1", 12],
- ["A2", "B2", "C1", 13],
- ["A2", "B2", "C2", 14],
- ["A2", "B2", "C2", 15]
-];
-
-var final_tree = [];
-
+function getLevelOption() {
+    //This function will depend upon the number of levels (group by) in data
+    //In return 1st element is top level i.e the series
+    //Further we need 1 element for each field 
+    return [
+            {
+                itemStyle: {
+                    normal: {
+                        //borderColor: '#777',
+                        borderWidth: 0,
+                        gapWidth: 4,
+                        
+                    }
+                },
+                upperLabel: {
+                    normal: {
+                        show: false
+                    }
+                }
+            },
+            {
+                colorSaturation: [0.35, 0.5],
+                itemStyle: {
+                    normal: {
+                        borderWidth: 5,
+                        gapWidth: 1,
+                        borderColorSaturation: 0.6
+                    }
+                }
+            }
+    ];
+}
+    
 object = raw_data.reduce((r, a) => setValue(r, a.slice(0, -1), a[a.length - 1]), {});
 
 for (child of walk_tree(object)) {
  final_tree.push(child);
 }
 
-console.log(final_tree);
+myChart.setOption(option = {
+
+        tooltip: {
+            formatter: function (info) {
+                let myDiv = [];
+                info.treePathInfo.forEach((d,i) => {
+                    let elSpan;
+                    if(i != 0) {
+                        elSpan = '<span>' + data_fields[i-1].toUpperCase() + " : " + d.name + "</span><br>";
+                        myDiv.push(elSpan);
+                    }
+                });
+                //Final el span will contain the value metric (sum_application in this case). 
+                //Data_fields[2] would not be static
+                let final_elSpan = '<span>' + data_fields[2].toUpperCase() + " : " + info.value + '</span><br>';
+                myDiv.push(final_elSpan);
+                return(myDiv.join(''));
+            }
+        },
+
+        series: [
+            {
+                type:'treemap',
+                name: 'Applications',
+                label: {
+                  show: true,
+                  position: 'insideBottomRight',
+                  formatter: function(d) {
+                    let myDiv = ''
+                   }
+                },
+                upperLabel: {
+                    normal: {
+                        show: true,
+                        height: 30
+                    }
+                },
+                leafDepth: 1, //This should be variable depending upon number of levels in data
+                data: final_tree,
+                levels: getLevelOption()
+            }
+        ]
+    });
+
