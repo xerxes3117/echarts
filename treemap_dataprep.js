@@ -10,8 +10,11 @@
  */
 
 let new_data = [];
+var final_tree = [];
 let data_fields = ["campaign", "fico_band", "SUM_applications"]
 
+//Converting each object element in data to array form
+//This could be done in same order as data_fields array above
 data.forEach(d => {
   let elArr = [];
   data_fields.forEach(e => {
@@ -20,16 +23,14 @@ data.forEach(d => {
   new_data.push(elArr);
 });
 
-var raw_data = new_data;
-
-var final_tree = [];
-
+//Convert new_data to forest form
 function setValue(object, path, value) {
  var last = path.pop();
  path.reduce((o, k) => o[k] = o[k] || {}, object)[last] = value;
  return object;
 }
 
+//Convert forest data to format as required by echarts
 function* walk_tree(tree) {
  for (var k in tree) {
   if (tree.hasOwnProperty(k)) {
@@ -52,6 +53,9 @@ function* walk_tree(tree) {
  }
 }
 
+//Level options for :
+//1) Color gradient mapping for values in a node
+//2) Setting upperLabel false for outermost parent (i.e. series)
 function getLevelOption() {
     //This function will depend upon the number of levels (group by) in data
     //In return 1st element is top level i.e the series
@@ -84,8 +88,9 @@ function getLevelOption() {
             }
     ];
 }
-    
-object = raw_data.reduce((r, a) => setValue(r, a.slice(0, -1), a[a.length - 1]), {});
+
+//Convert new_data to forest form
+object = new_data.reduce((r, a) => setValue(r, a.slice(0, -1), a[a.length - 1]), {});
 
 for (child of walk_tree(object)) {
  final_tree.push(child);
