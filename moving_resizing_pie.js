@@ -12,7 +12,8 @@
 //         and use onclick on that element to check for focusout of other elements.
 //      - onclick would have to be added to charts elements also to detect focus out.
 //      - Also there seems to some issue in dragging rect elements when we add border/stroke to that element.
-//    - resizePie might break when any corner crosses another corner elements (horizontally, vertically, diagonally)
+//    - resizePie might break when any corner crosses another corner elements (horizontally, vertically, diagonally). 
+//      We can avoid this from happening.
 //    - 'ondragend' and 'ondrag' can be used separately.
 //      - 'ondrag' resize only graphic elements
 //      - 'ondragend' resize the chart
